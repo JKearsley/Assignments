@@ -1,0 +1,61 @@
+---
+title: "jk_720_week7inclass"
+author: "Jason Kearsley"
+date: "October 29, 2018"
+output: html_document
+---
+```{r}
+read_1 <- "CGCGCAGTAGGGCACATGCCAGGTGTCCGCCACTTGGTGGGCACACAGCCGATGACGAACGGGCTCCTTGACTATAATCTGACCCGTTTGCGTTTGGGTGACCAGGGAGAACTGGTGCTCCTGC"
+reads <- c("CGCGCAGTAGGGCACATGCCAGGTGTCCGCCACTTGGTGGGCACACAGCCGATGACGAACGGGCTCCTTGACTATAATCTGACCCGTTTGCGTTTGGGTGACCAGGGAGAACTGGTGCTCCTGC", "AAAAAGCCAACCGAGAAATCCGCCAAGCCTGGCGACAAGAAGCCAGAGCAGAAGAAGACTGCTGCGGCTCCCGCTGCCGGCAAGAAGGAGGCTGCTCCCTCGGCTGCCAAGCCAGCTGCCGCTG", "CAGCACGGACTGGGGCTTCTTGCCGGCGAGGACCTTCTTCTTGGCATCCTTGCTCTTGGCCTTGGCGGCCGCGGTCGTCTTTACGGCCGCGGGCTTCTTGGCAGCAGCACCGGCGGTCGCTGGC")
+```
+
+1. Drosophila melanogaster
+2. The class is character. length(reads) returns 3, the length of the vector. nchar(reads) returns 124.
+3.
+```{r}
+read_1split <- strsplit(read_1, split = '')
+for (i in read_1split) {
+  print(i)
+}
+```
+4. It is a list. 
+```{r}
+read_1splitvec <- unlist(read_1split)
+str(read_1splitvec)
+```
+5. 
+```{r}
+tabler1s <- table(read_1split)
+tabler1s / sum(tabler1s)
+```
+6.
+```{r}
+basefreq <- function(x) {
+  y <- table(x)
+  return(y / sum(y))
+}
+basefreq(read_1split)
+```
+This works for both lists and vectors.
+
+2.1 
+In the first case x is returned because it was defined outside the loop. In the second case x is merely an internal variable within the function and R is unable to call these.
+
+2.2
+```{r}
+x <- c()
+
+system.time(for (i in 1:10000) {
+  x <- c(x, i^2)
+})
+```
+2.3
+```{r}
+y <- vector(mode = "integer", length = 10000)
+
+system.time(for (i in 1:10000) {
+  y[i] <- i^2
+})
+```
+2.4
+Presumably using the apply function with an anonymous function to square the elements of 1:10000. I forget how to do this.
